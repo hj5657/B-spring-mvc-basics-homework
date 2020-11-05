@@ -13,9 +13,10 @@ import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class, DuplicateUserNameException.class})
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class, DuplicateUserNameException.class, LoginException.class})
     public ResponseEntity handleValid(Exception ex) {
         String message = ex.getMessage();
+        int code = HttpStatus.BAD_REQUEST.value();
         if (ex instanceof MethodArgumentNotValidException) {
             BindingResult exceptions = ((MethodArgumentNotValidException) ex).getBindingResult();
             if (exceptions.hasErrors()) {
@@ -25,7 +26,10 @@ public class GlobalExceptionHandler {
                 }
             }
         }
-        Error error = new Error(HttpStatus.BAD_REQUEST.value(), message);
+        if (ex instanceof LoginException){
+            code = HttpStatus.NOT_FOUND.value();
+        }
+        Error error = new Error(code, message);
         return ResponseEntity.badRequest().body(error);
     }
 }
