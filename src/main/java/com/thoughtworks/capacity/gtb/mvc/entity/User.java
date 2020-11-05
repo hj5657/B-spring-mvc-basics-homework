@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class User {
     @NotNull
     @Size(min = 3, max = 10)
-    @Pattern(regexp = "^[a-z0-9_]+$")
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$")
     private String username;
     @NotNull
     @Size(min = 5, max = 12)
