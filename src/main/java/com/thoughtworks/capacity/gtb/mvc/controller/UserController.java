@@ -16,15 +16,15 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid User user){
+    public ResponseEntity register(@RequestBody @Valid User user) {
         userService.register(user);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/login?username={username}&password={password}")
-    public ResponseEntity login(@PathVariable String username,@PathVariable String password){
-        User userPO = userService.login(username, password);
-        return ResponseEntity.ok(userPO);
+    @GetMapping("/login")
+    public ResponseEntity login(@RequestParam String username, @RequestParam String password) {
+        User user = userService.login(username, password);
+        return ResponseEntity.ok(user);
     }
 
 }
