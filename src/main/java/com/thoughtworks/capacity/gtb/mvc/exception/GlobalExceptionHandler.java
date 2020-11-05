@@ -9,11 +9,17 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Set;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(value = {MethodArgumentNotValidException.class, DuplicateUserNameException.class, LoginException.class})
+    @ExceptionHandler(value = {MethodArgumentNotValidException.class
+            , DuplicateUserNameException.class
+            , LoginException.class
+            , ConstraintViolationException.class})
     public ResponseEntity handleValid(Exception ex) {
         String message = ex.getMessage();
         int code = HttpStatus.BAD_REQUEST.value();
@@ -26,7 +32,7 @@ public class GlobalExceptionHandler {
                 }
             }
         }
-        if (ex instanceof LoginException){
+        if (ex instanceof LoginException) {
             code = HttpStatus.NOT_FOUND.value();
         }
         Error error = new Error(code, message);
