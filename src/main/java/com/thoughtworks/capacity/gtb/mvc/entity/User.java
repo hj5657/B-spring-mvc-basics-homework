@@ -1,4 +1,4 @@
-package com.thoughtworks.capacity.gtb.mvc.Entity;
+package com.thoughtworks.capacity.gtb.mvc.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
