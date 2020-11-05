@@ -17,6 +17,7 @@ public class UserService {
         if (users.containsKey(user.getUsername())) {
             throw new DuplicateUserNameException("用户名重复");
         }
+        user.setId(users.size()+1);
         users.put(user.getUsername(), user);
     }
 
